@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增博客分类信息</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <script src="/lib/bootstrap/js/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center">个人账号注册</h3>
+            </div>
+            <div class="panel-body has-success">
+                <form action="#" id="addBlog" method="post" class="form" role="form">
+                    <input type="hidden" name="id" value="{{blog.id}}">
+                    <div class="form-group">
+                        <label for="name">博客类型</label>
+                        <input type="text" class="form-control input-lg" name="name" id="name" placeholder="请输入博客类型">
+                    </div>
+                    <div>
+                        <label for="description">描述</label>
+                        <textarea class="form-control input-lg" name="description" id="description" placeholder="请输入描述信息"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg pull-right">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="/lib/js/jquery.validate.js"></script>
+<script src="/lib/js/messages_zh.js"></script>
+<script>
+    $('#addBlog').validate({
+        //截下表单的提交另做处理
+        submitHandler:function(ele){
+            // 在此处通过ajax方式提交表单数据到服务器
+            $.ajax({
+                type:'post',
+                url:'/add',
+                dataType:'json',
+                data:$(ele).serialize(),
+                success:function(res){
+                    alert(res.msg);
+                    location.href = '/';
+                },
+                error:function (err) {
+                    console.dir(err);
+                }
+            })
+        },
+        // 验证规则
+        rules:{
+            name:{
+                required:true,
+                minlength:2
+            },
+            description:{
+                required:true,
+                minlength:6
+            }
+        }
+    })
+</script>
