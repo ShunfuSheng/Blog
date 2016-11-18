@@ -5,12 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//引入数据model
-var db = require('./db');
-var BlogTypeSchema = db.BlogTypeSchema;
-
-//引入子模块
-var users = require('./routes/users');
 
 var app = express();
 
@@ -30,44 +24,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', users);
+//导入子模块
+app.use('/users', require('./routes/users'));
+app.use('/api/v1/blog_type', require('./routes/blog/blog_type'));
+app.use('/api/v1/blog', require('./routes/blog/blog'));
 
 
-app.get('/', (req, res) => {
-  BlogTypeSchema.find().then((data) => {
-    res.render('type_list', {blogTypeData: data});
-  })
-});
 
-app.get('/add', (req, res) => {
-  var blogType = new BlogTypeSchema();
-  res.render('type_add', {blog: blogType});
-});
-
-app.post('/add', function (req, res) {
-  BlogTypeSchema.findById(req.body.id).then((data) => {
-    if(data){
-      res.json({status: '400', msg: '用户已存在!'});
-    }else{
-      BlogTypeSchema.findByIdAndUpdate(req.body.id, {name: req.body.name, description: req.body.description}, {upsert: true})
-          .then((data) => {
-            if(data){
-              res.json({status: '400', msg: '注册失败，请联系管理员!'});
-            }else{
-              res.json({status: '200', msg: '注册成功，准备跳转...'});
-            }
-          }).catch((err) => {
-            console.dir(err);
-      })
-    }
-  }).catch((err) => {
-    console.dir(err);
-  })
+//获取blog的表数据
+app.get('/api/v1/blogs/get_data', (req, res) =>{
+  // BlogTypeSchema.find({})
+  //     .then(data =>{
+  //       //对输出数据进行格式化
+  //       var dataArr = data.map(item =>{
+  //         var k = item.toObject();
+  //         k.id = item.id;
+  //         delete k._id;
+  //         delete k._v;
+  //         k.updated_at =
+  //       })
+  //     })
 })
 
-
-
-
+//获取集合分类的表数据
+app.get('/api/v1/blog_type/get_data', (req, res) =>{
+  BlogTypeSchema.find({})
+      .then(data=>{
+        res.json({
+          status: '200',
+          data: data
+        })
+      })
+})
 
 
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改博客类型</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <script src="/lib/bootstrap/js/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center">博客类型修改</h3>
+            </div>
+            <div class="panel-body has-success">
+                <form action="/api/v1/blog_type/editor" id="addBlog" method="post" class="form" role="form">
+                    <input type="hidden" name="_id" value="{{blog_type_data.id}}">
+                    <div class="form-group">
+                        <label for="name">博客类型</label>
+                        <input type="text" class="form-control input-lg" name="name" id="name" value="{{blog_type_data.name}}">
+                    </div>
+                    <div>
+                        <label for="description">描述</label>
+                        <textarea class="form-control input-lg" name="description" id="description">{{blog_type_data.description}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg pull-right">修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

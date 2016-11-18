@@ -6,16 +6,23 @@
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <script src="/lib/bootstrap/js/jquery.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        .error{
+            color: orangered;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center">个人账号注册</h3>
+                <h3 class="panel-title" style="text-align: center">新增分类信息</h3>
             </div>
             <div class="panel-body has-success">
                 <form action="#" id="addBlog" method="post" class="form" role="form">
-                    <input type="hidden" name="id" value="{{blog.id}}">
+                    <input type="hidden" name="_id" value="{{blog.id}}">
+                    <input type="hidden" name="created_at" value="{{blog.getCreateDate()}}">
+                    <input type="hidden" name="updated_at" value="{{blog.getUpdateDate()}}">
                     <div class="form-group">
                         <label for="name">博客类型</label>
                         <input type="text" class="form-control input-lg" name="name" id="name" placeholder="请输入博客类型">
@@ -41,12 +48,12 @@
             // 在此处通过ajax方式提交表单数据到服务器
             $.ajax({
                 type:'post',
-                url:'/add',
+                url:'/api/v1/blog_type/add',
                 dataType:'json',
                 data:$(ele).serialize(),
                 success:function(res){
                     alert(res.msg);
-                    location.href = '/';
+                    location.href = '/api/v1/blog_type/';
                 },
                 error:function (err) {
                     console.dir(err);
@@ -63,6 +70,7 @@
                 required:true,
                 minlength:6
             }
-        }
+        },
+        errorClass: 'error'
     })
 </script>
