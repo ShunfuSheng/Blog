@@ -2,7 +2,7 @@
 -<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>博客类型展示</title>
+    <title>博客展示</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <script src="/lib/bootstrap/js/jquery.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -11,7 +11,7 @@
     <div class="container">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center">博客类型</h3>
+                <h3 class="panel-title" style="text-align: center">博客列表</h3>
             </div>
             <div class="panel-body">
                 <button onclick="location.href='/api/v1/blog/add'" type="button" class="btn btn-danger pull-right" style="margin-bottom: 10px">添加</button>
@@ -42,7 +42,7 @@
                             <td>{{$value.getUpdateDate()}}</td>
                             <td>
                                 <a href="/api/v1/blog/editor?id={{$value.id}}" class="btn btn-success">修改</a>
-                                <a href="/api/v1/blog/delete?id={{$value.id}}" class="btn btn-danger">删除</a>
+                                <a href="javascript:;" onclick="del('{{$value.id}}')" class="btn btn-danger">删除</a>
                             </td>
                         </tr>
                         {{/each}}
@@ -53,3 +53,25 @@
     </div>
 </body>
 </html>
+
+<script>
+    function del(id) {
+        var r = window.confirm('你确定要删除吗？')
+        if(r){
+            $.ajax({
+                url: '/api/v1/blog/delete',
+                method: 'get',
+                data: {id: id},
+                dataType: 'json',
+                success: function (res) {
+                    if(res.status == 200){
+                        alert(res.msg);
+                        location.href = '/blog'
+                    }else{
+                        alert('删除失败!');
+                    }
+                }
+            })
+        }
+    }
+</script>

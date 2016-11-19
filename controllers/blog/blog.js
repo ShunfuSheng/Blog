@@ -76,7 +76,7 @@ router.post('/editor/:id?', function (req, res) {
 router.get('/delete', function (req, res) {
     var id = req.query.id;
     BlogSchema.findByIdAndRemove(id).then(function () {
-        res.redirect('/blog');
+        res.json({status: '200', msg: '删除成功!'});
     }).catch(function (err) {
         console.dir(err);
     })
