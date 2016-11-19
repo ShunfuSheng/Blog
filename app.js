@@ -25,14 +25,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //导入子模块
-app.use('/users', require('./routes/users'));
-app.use('/api/v1/blog_type', require('./routes/blog/blog_type'));
-app.use('/api/v1/blog', require('./routes/blog/blog'));
+app.use('/users', require('./controllers/users'));
+app.use('/api/v1/blog_type', require('./controllers/blog/blog_type'));
+app.use('/api/v1/blog', require('./controllers/blog/blog'));
 
+
+//网站首页，重定向到博客类型展示
+app.get('/blog_type', function (req, res) {
+  res.redirect('/api/v1/blog_type/');
+});
+app.get('/blog', function (req, res) {
+  res.redirect('/api/v1/blog/')
+})
 
 
 //获取blog的表数据
-app.get('/api/v1/blogs/get_data', (req, res) =>{
+// app.get('/api/v1/blogs/get_data', (req, res) =>{
   // BlogTypeSchema.find({})
   //     .then(data =>{
   //       //对输出数据进行格式化
@@ -44,19 +52,17 @@ app.get('/api/v1/blogs/get_data', (req, res) =>{
   //         k.updated_at =
   //       })
   //     })
-})
-
+// })
 //获取集合分类的表数据
-app.get('/api/v1/blog_type/get_data', (req, res) =>{
-  BlogTypeSchema.find({})
-      .then(data=>{
-        res.json({
-          status: '200',
-          data: data
-        })
-      })
-})
-
+// app.get('/api/v1/blog_type/get_data', (req, res) =>{
+//   BlogTypeSchema.find({})
+//       .then(data=>{
+//         res.json({
+//           status: '200',
+//           data: data
+//         })
+//       })
+// })
 
 
 

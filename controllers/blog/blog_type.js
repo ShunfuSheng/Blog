@@ -5,8 +5,8 @@
 var express = require('express');
 var router = express.Router();
 //引入数据model
-var db = require('../../db');
-var BlogTypeSchema = db.BlogTypeSchema;
+var model = require('../../model');
+var BlogTypeSchema = model.BlogTypeSchema;
 
 
 //博客类型展示

@@ -14,27 +14,36 @@
                 <h3 class="panel-title" style="text-align: center">博客类型</h3>
             </div>
             <div class="panel-body">
-                <button onclick="location.href='/api/v1/blog_type/add'" type="button" class="btn btn-danger pull-right" style="margin-bottom: 10px">添加</button>
+                <button onclick="location.href='/api/v1/blog/add'" type="button" class="btn btn-danger pull-right" style="margin-bottom: 10px">添加</button>
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>序号</th>
+                        <th>标题</th>
                         <th>博客类型</th>
                         <th>描述</th>
+                        <th>内容</th>
+                        <th>浏览次数</th>
                         <th>创建日期</th>
                         <th>修改日期</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody id="write">
-                        {{each blogTypeData}}
+                        {{each blogData}}
                         <tr>
                             <td>{{$index + 1}}</td>
-                            <td>{{$value.name}}</td>
+                            <td>{{$value.title}}</td>
+                            <td>{{$value.type.name}}</td>
                             <td>{{$value.description}}</td>
+                            <td>{{$value.content}}</td>
+                            <td>{{$value.view_times}}</td>
                             <td>{{$value.getCreateDate()}}</td>
                             <td>{{$value.getUpdateDate()}}</td>
-                            <td><a href="/api/v1/blog_type/editor?id={{$value.id}}" class="btn btn-success">修改</a></td>
+                            <td>
+                                <a href="/api/v1/blog/editor?id={{$value.id}}" class="btn btn-success">修改</a>
+                                <a href="/api/v1/blog/delete?id={{$value.id}}" class="btn btn-danger">删除</a>
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>

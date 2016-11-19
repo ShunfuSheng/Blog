@@ -60,8 +60,8 @@ var blogSchema = new Schema({
         ref:'blog_type'
     },
     description: String,
-    contend: String,
-    view_tiems: {
+    content: String,
+    view_times: {
         type: Number,
         default: 0
     },
