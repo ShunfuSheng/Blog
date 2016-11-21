@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">内容</label>
-                        <textarea class="form-control input-lg" name="content" id="content" placeholder="请输入内容，不少于6个字"></textarea>
+                        <textarea style="height: 500px" class="form-control input-lg" name="content" id="content" placeholder="请输入内容，不少于6个字"></textarea>
                     </div>
                     <button type="submit" class="btn btn-success btn-lg pull-right">提交</button>
                 </form>
@@ -50,7 +50,24 @@
 
 <script src="/lib/js/jquery.validate.js"></script>
 <script src="/lib/js/messages_zh.js"></script>
+<script charset="utf-8" src="/lib/kindeditor/kindeditor.min.js"></script>
+<script charset="utf-8" src="/lib/kindeditor/lang/zh-CN.js"></script>
 <script>
+    //初始化kindeditor编辑器，在失去textarea焦点后同步kindeditot的数据到表单元素中
+    var options = {
+        uploadJson: '/common/kindeditor/uploadImg',
+        afterBlur: function () {
+            this.sync();
+        }
+    };
+
+    //window.editor注册一个全局的editor变量，保存当前的文本编辑器
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#content', options);
+    });
+
+
+    //表单验证处理
     $('#addBlog').validate({
         //截下表单的提交另做处理
         submitHandler:function(ele){

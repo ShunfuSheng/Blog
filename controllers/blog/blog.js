@@ -14,12 +14,23 @@ var BlogTypeSchema = model.BlogTypeSchema
 router.get('/', function (req, res) {
     //通过关联blog_type表获取相应的数据
     BlogSchema.find({}).populate('type').then(function (data) {
-        console.log(data);
+        // console.log(data);
         res.render('blog/list', {blogData: data});
     }).catch(function (err) {
         console.log(err);
     })
 });
+
+//博客详情展示
+router.get('/show', function (req, res) {
+    BlogSchema.findById(req.query.id).then(function (data) {
+        if(data){
+            res.render('blog/show', {blog: data});
+        }
+    }).catch(function (err) {
+        console.dir(err);
+    })
+})
 
 //添加一条博客
 router.get('/add', function (req, res) {

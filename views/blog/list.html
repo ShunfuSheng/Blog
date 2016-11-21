@@ -22,7 +22,6 @@
                         <th>标题</th>
                         <th>博客类型</th>
                         <th>描述</th>
-                        <th>内容</th>
                         <th>浏览次数</th>
                         <th>创建日期</th>
                         <th>修改日期</th>
@@ -33,10 +32,9 @@
                         {{each blogData}}
                         <tr>
                             <td>{{$index + 1}}</td>
-                            <td>{{$value.title}}</td>
+                            <td><a href="/api/v1/blog/show?id={{$value.id}}">{{$value.title}}</a></td>
                             <td>{{$value.type.name}}</td>
                             <td>{{$value.description}}</td>
-                            <td>{{$value.content}}</td>
                             <td>{{$value.view_times}}</td>
                             <td>{{$value.getCreateDate()}}</td>
                             <td>{{$value.getUpdateDate()}}</td>

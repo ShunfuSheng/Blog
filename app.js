@@ -24,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//引入文本编辑器上传文件的模块
+app.use('/common/kindeditor', require('./controllers/common/kindeditor/index'));
+
 //导入子模块
 app.use('/users', require('./controllers/users'));
 app.use('/api/v1/blog_type', require('./controllers/blog/blog_type'));
