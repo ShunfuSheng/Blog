@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+
 //引入art-template模板引擎
 var template = require('art-template');
 template.config('base', '');
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 //引入文本编辑器上传文件的模块
 app.use('/common/kindeditor', require('./controllers/common/kindeditor/index'));
@@ -41,31 +43,6 @@ app.get('/blog', function (req, res) {
   res.redirect('/api/v1/blog/')
 })
 
-
-//获取blog的表数据
-// app.get('/api/v1/blogs/get_data', (req, res) =>{
-  // BlogTypeSchema.find({})
-  //     .then(data =>{
-  //       //对输出数据进行格式化
-  //       var dataArr = data.map(item =>{
-  //         var k = item.toObject();
-  //         k.id = item.id;
-  //         delete k._id;
-  //         delete k._v;
-  //         k.updated_at =
-  //       })
-  //     })
-// })
-//获取集合分类的表数据
-// app.get('/api/v1/blog_type/get_data', (req, res) =>{
-//   BlogTypeSchema.find({})
-//       .then(data=>{
-//         res.json({
-//           status: '200',
-//           data: data
-//         })
-//       })
-// })
 
 
 

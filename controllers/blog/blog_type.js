@@ -58,6 +58,23 @@ router.post('/editor', function (req, res) {
     })
 });
 
+//写一个api接口，获取集合分类的表数据，供远程调用
+router.get('/get_data', (req, res) =>{
+    BlogTypeSchema.find({})
+        .then(data=>{
+            //解掉同源协议，允许跨域访问此接口
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
+            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+            res.header("X-Powered-By",' 3.2.1');
+            res.header("Content-Type", "application/json;charset=utf-8");
+            res.json({
+                status: '200',
+                data: data
+            })
+        })
+})
+
 
 
 
