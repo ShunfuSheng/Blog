@@ -24,13 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/ifram', express.static(path.join(__dirname, 'views')));
 
 
 //引入文本编辑器上传文件的模块
 app.use('/common/kindeditor', require('./controllers/common/kindeditor/index'));
 
 //导入子模块
-app.use('/users', require('./controllers/users'));
+app.use('/', require('./controllers/index'));
 app.use('/api/v1/blog_type', require('./controllers/blog/blog_type'));
 app.use('/api/v1/blog', require('./controllers/blog/blog'));
 
